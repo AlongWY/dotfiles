@@ -28,16 +28,12 @@ fi
 #============================================
 
 # zsh
-sudo rm -rf $HOME/.zshrc > /dev/null 2>&1
-sudo rm -rf $HOME/.zplugin > /dev/null 2>&1
-
-# gitconfig
-sudo rm -rf $HOME/.gitconfig > /dev/null 2>&1
+rm -rf $HOME/.zshrc > /dev/null 2>&1
+rm -rf $HOME/.zplugin > /dev/null 2>&1
 
 # fish
-sudo rm -rf $HOME/.config/fish/ > /dev/null 2>&1
-sudo rm -rf $HOME/.local/share/omf > /dev/null 2>&1
-
+rm -rf $HOME/.config/fish/ > /dev/null 2>&1
+rm -rf $HOME/.local/share/omf > /dev/null 2>&1
 
 #============================================
 # Install oh-my-fish
@@ -49,9 +45,14 @@ curl -L https://get.oh-my.fish | fish
 # Create symlinks in the home folder
 #============================================
 
-ln -sf $dotfiles_dir/zsh/zshrc $HOME/.zshrc
-ln -sf $dotfiles_dir/gitconfig $HOME/.gitconfig
-ln -sf $dotfiles_dir/fish/omf  $HOME/.local/share/omf
+ln -sf $dotfiles_dir/zsh/zshrc.zsh          $HOME/.zshrc
+ln -sf $dotfiles_dir/fish/omf               $HOME/.local/share/omf
+ln -sf $dotfiles_dir/starship/starship.toml $HOME/.config/starship.toml
+
+# gitconfig
+if [ ! -f "$HOME/.gitconfig" ]; then
+    ln -s $dotfiles_dir/gitconfig $HOME/.gitconfig
+fi
 
 #===================================
 # Set zsh as the default shell
