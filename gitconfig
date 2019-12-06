@@ -1,0 +1,5 @@
+[user]
+	name = along
+	email = ylfeng@ir.hit.edu.cn
+[core]
+	autocrlf = input
