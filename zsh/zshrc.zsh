@@ -49,28 +49,40 @@ fi
 # 安装插件 {{{
 
 # sharkdp/bat
-zplugin ice as"command" from"gh-r" bpick"$PICK" mv"bat* -> bat" pick"bat/bat"
-zplugin light sharkdp/bat
+if [ ! -x "$(which bat)" ]; then
+    zplugin ice as"command" from"gh-r" bpick"$PICK" mv"bat* -> bat" pick"bat/bat"
+    zplugin light sharkdp/bat
+fi
 
 # sharkdp/fd
-zplugin ice as"command" from"gh-r" bpick"$PICK" mv"fd* -> fd" pick"fd/fd"
-zplugin light sharkdp/fd
+if [ ! -x "$(which fd)" ]; then
+    zplugin ice as"command" from"gh-r" bpick"$PICK" mv"fd* -> fd" pick"fd/fd"
+    zplugin light sharkdp/fd
+fi
 
 # Peltoche/lsd
-zplugin ice as"command" from"gh-r" bpick"$PICK" mv"lsd* -> lsd" pick"lsd/lsd"
-zplugin light Peltoche/lsd
+if [ ! -x "$(which lsd)" ]; then
+    zplugin ice as"command" from"gh-r" bpick"$PICK" mv"lsd* -> lsd" pick"lsd/lsd"
+    zplugin light Peltoche/lsd
+fi
 
 # BurntSushi/ripgrep
-zplugin ice as"command" from"gh-r" bpick"$PICK" mv"ripgrep* -> ripgrep" pick"ripgrep/rg"
-zplugin light BurntSushi/ripgrep
+if [ ! -x "$(which rg)" ]; then
+    zplugin ice as"command" from"gh-r" bpick"$PICK" mv"ripgrep* -> ripgrep" pick"ripgrep/rg"
+    zplugin light BurntSushi/ripgrep
+fi
 
 # XAMPPRocky/tokei
-zplugin ice as"command" from"gh-r" bpick"$PICK" mv"tokei* -> tokei" pick"tokei/tokei"
-zplugin light XAMPPRocky/tokei
+if [ ! -x "$(which tokei)" ]; then
+    zplugin ice as"command" from"gh-r" bpick"$PICK" mv"tokei* -> tokei" pick"tokei/tokei"
+    zplugin light XAMPPRocky/tokei
+fi
 
 # starship/starship
-zplugin ice as"command" from"gh-r" bpick"$PICK" mv"starship* -> starship" pick"starship/starship"
-zplugin light starship/starship
+if [ ! -x "$(which starship)" ]; then
+    zplugin ice as"command" from"gh-r" bpick"$PICK" mv"starship* -> starship" pick"starship/starship"
+    zplugin light starship/starship
+fi
 
 # Binary release in archive, from GitHub-releases page.
 # After automatic unpacking it provides program "fzf".
@@ -226,6 +238,10 @@ if [ -d "$MINICONDA" ]; then
         fi
     fi
     unset __conda_setup
+else
+    conda () {
+        echo "conda not installed!!!"
+    }
 fi
 
 # virtualenv
@@ -244,16 +260,17 @@ alias grep='rg'
 alias find='fd' 
 alias cloc='tokei' 
 
-# nvidia
-alias nvidia-on='sudo tee /proc/acpi/bbswitch <<< ON'
-alias nvidia-off='sudo rmmod nvidia_uvm && sudo rmmod nvidia && sudo tee /proc/acpi/bbswitch <<< OFF'
+# clean wine mime
+clean-wine-mime () {
+    SHARE="$HOME/.local/share"
+    rm -f $SHARE/applications/wine-extension*.desktop &> /dev/null 
+    rm -f $SHARE/icons/hicolor/*/*/application-x-wine-extension* &> /dev/null
+    rm -f $SHARE/applications/mimeinfo.cache &> /dev/null
+    rm -f $SHARE/mime/packages/x-wine* &> /dev/null
+    rm -f $SHARE/mime/application/x-wine-extension* &> /dev/null
+    update-desktop-database $SHARE/applications &> /dev/null
+}
 
-# rm wine mime
-alias rm-wine-mime='rm -f ~/.local/share/applications/wine-extension*.desktop && 
-                    rm -f ~/.local/share/icons/hicolor/*/*/application-x-wine-extension* && 
-                    rm -f ~/.local/share/applications/mimeinfo.cache && 
-                    rm -f ~/.local/share/mime/packages/x-wine* && 
-                    rm -f ~/.local/share/mime/application/x-wine-extension* &&
-                    update-desktop-database ~/.local/share/applications'
-                    
-eval "$(starship init zsh)"
+if [ -x "$(which starship)" ]; then
+    eval "$(starship init zsh)"
+fi

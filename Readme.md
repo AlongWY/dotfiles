@@ -37,3 +37,4 @@ sh -c "$(wget https://raw.githubusercontent.com/AlongWY/dotfiles/master/install.
 
 + [ ] Fish binutils 支持
 + [ ] Safe rm 支持
++ [ ] 图形化安装支持
