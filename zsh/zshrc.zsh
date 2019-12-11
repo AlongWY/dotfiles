@@ -60,6 +60,12 @@ if [ ! -x "$(which fd)" ]; then
     zplugin light sharkdp/fd
 fi
 
+# sharkdp/hyperfine
+if [ ! -x "$(which hyperfine)" ]; then
+    zplugin ice as"command" from"gh-r" bpick"$PICK" mv"hyperfine* -> hyperfine" pick"hyperfine/hyperfine"
+    zplugin light sharkdp/hyperfine
+fi
+
 # Peltoche/lsd
 if [ ! -x "$(which lsd)" ]; then
     zplugin ice as"command" from"gh-r" bpick"$PICK" mv"lsd* -> lsd" pick"lsd/lsd"

@@ -24,29 +24,29 @@ else
 fi
 
 #============================================
-# Delete existing dot files and folders
+#   Install ZSH Config
 #============================================
 
 # zsh
 rm -rf $HOME/.zshrc > /dev/null 2>&1
 rm -rf $HOME/.zplugin > /dev/null 2>&1
-
-# fish
-rm -rf $HOME/.config/fish/ > /dev/null 2>&1
-rm -rf $HOME/.local/share/omf > /dev/null 2>&1
+ln -sf $dotfiles_dir/zsh/zshrc.zsh $HOME/.zshrc
 
 #============================================
 # Install oh-my-fish
 #============================================
 
-curl -L https://get.oh-my.fish | fish
+if [ -x "$(which git)" ]; then
+    curl -L https://get.oh-my.fish | fish
+    rm -rf $HOME/.config/fish/ > /dev/null 2>&1
+    rm -rf $HOME/.local/share/omf > /dev/null 2>&1
+    ln -sf $dotfiles_dir/fish/omf $HOME/.local/share/omf
+fi
 
 #============================================
 # Create symlinks in the home folder
 #============================================
 
-ln -sf $dotfiles_dir/zsh/zshrc.zsh          $HOME/.zshrc
-ln -sf $dotfiles_dir/fish/omf               $HOME/.local/share/omf
 ln -sf $dotfiles_dir/starship/starship.toml $HOME/.config/starship.toml
 
 # gitconfig

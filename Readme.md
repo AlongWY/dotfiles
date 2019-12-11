@@ -33,6 +33,20 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/AlongWY/dotfiles/master/in
 sh -c "$(wget https://raw.githubusercontent.com/AlongWY/dotfiles/master/install.sh -O -)"
 ```
 
+## Manjaro 初始化配置脚本
+
+使用curl安装
+
+```bash
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/AlongWY/dotfiles/master/system/manjaro.sh)"
+```
+
+使用wget安装
+
+```bash
+sh -c "$(wget https://raw.githubusercontent.com/AlongWY/dotfiles/master/system/manjaro.sh -O -)"
+```
+
 ## Todo list
 
 + [ ] Fish binutils 支持
