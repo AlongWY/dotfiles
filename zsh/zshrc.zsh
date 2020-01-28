@@ -266,6 +266,13 @@ alias grep='rg'
 alias find='fd' 
 alias cloc='tokei' 
 
+if [ -x "$(which micro)" ]; then
+    alias nano='micro' 
+fi
+
+alias nvidia-on='sudo tee /proc/acpi/bbswitch <<< ON'
+alias nvidia-off='sudo rmmod nvidia_uvm && sudo rmmod nvidia && sudo tee /proc/acpi/bbswitch <<< OFF'
+
 # clean wine mime
 clean-wine-mime () {
     SHARE="$HOME/.local/share"
@@ -280,3 +287,29 @@ clean-wine-mime () {
 if [ -x "$(which starship)" ]; then
     eval "$(starship init zsh)"
 fi
+
+
+download () {
+    aria2c -x 16 $@
+}
+
+
+proton () {
+    export STEAM_COMPAT_DATA_PATH=$HOME/.proton
+    export PROTONFIXES_DISABLE=1
+    $HOME/Software/Proton-4.21-GE-2/proton $@
+}
+
+
+dirmd5 () {
+    find  -t f -0 $1 | xargs -0 md5sum > $2
+}
+
+dirmd5check() {
+    md5sum -c $1
+}
+
+
+nwine() {
+    __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia wine $@
+}

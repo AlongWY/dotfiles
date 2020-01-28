@@ -51,7 +51,8 @@ function main() {
             26 "Ninja 建构系统" off \
             27 "Jetbrains IDEA" off \
             28 "Jetbrains Clion" off \
-            29 "Jetbrains Pycharm" off
+            29 "Jetbrains Pycharm" off \
+            30 "Micro 文本编辑器" off \
     )
 
     case $? in
@@ -97,6 +98,7 @@ function main() {
                 '27') sudorun pacman -S --noconfirm intellij-idea-ultimate-edition intellij-idea-ultimate-edition-jre ;;
                 '28') sudorun pacman -S --noconfirm clion clion-cmake clion-gdb clion-jre clion-lldb ;;
                 '29') sudorun pacman -S --noconfirm pycharm-professional ;;
+                '30') sudorun pacman -S --noconfirm micro-manjaro ;;
                 esac
             done
             ;;
