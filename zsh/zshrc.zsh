@@ -24,8 +24,8 @@ if [ ! -d "$ZPLUGIN" ]; then
 fi
 
 # LOAD ZMOUDLE
-module_path+=("$ZPLUGIN/bin/zmodules/Src")
-zmodload zdharma/zplugin
+# module_path+=("$ZPLUGIN/bin/zmodules/Src")
+# zmodload zdharma/zplugin
 
 # INIT ZPLUGIN
 source $ZPLUGIN/bin/zplugin.zsh
@@ -92,12 +92,16 @@ fi
 
 # Binary release in archive, from GitHub-releases page.
 # After automatic unpacking it provides program "fzf".
-zplugin ice from"gh-r" as"program"
-zplugin light junegunn/fzf-bin
+if [ ! -x "$(which fzf)" ]; then
+    zplugin ice from"gh-r" as"program"
+    zplugin light junegunn/fzf-bin
+fi
 
-zplugin ice from"gh-r" as"program" mv"direnv* -> direnv" \
-    './direnv hook zsh > zhook.zsh' atpull'%atclone' pick"direnv"
-zplugin light direnv/direnv
+if [ ! -x "$(which fzf)" ]; then
+    zplugin ice from"gh-r" as"program" mv"direnv* -> direnv" \
+        './direnv hook zsh > zhook.zsh' atpull'%atclone' pick"direnv"
+    zplugin light direnv/direnv
+fi
 
 zplugin ice wait blockf atpull'zplugin creinstall -q .'
 zplugin light zsh-users/zsh-completions
@@ -184,8 +188,17 @@ zstyle ':completion:*' menu select
 zstyle ':completion:*:*:default' force-list always
 
 #彩色补全菜单
-eval $(dircolors -b)
-export ZLSCOLORS="${LS_COLORS}"
+
+LS_COLORS=…
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+if whence dircolors >/dev/null; then
+  export LS_COLORS
+  alias ls='ls --color'
+else
+  export CLICOLOR=1
+  LSCOLORS=…
+fi
+
 zmodload zsh/complist
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
