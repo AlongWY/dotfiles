@@ -1,0 +1,16 @@
+[mirrors]
+"https://conda.anaconda.org" = [
+  "https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud",
+  "https://mirrors.pku.edu.cn/anaconda/cloud",
+  "https://prefix.dev/",
+]
+
+[pypi-config]
+index-url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple"
+extra-index-urls = [
+  "https://mirrors.pku.edu.cn/pypi/web/simple",
+  "https://mirrors.bfsu.edu.cn/pypi/web/simple",
+  "https://mirror.sjtu.edu.cn/pypi/web/simple",
+  "https://mirrors.zju.edu.cn/pypi/web/simple",
+  "https://mirrors.ustc.edu.cn/pypi/simple",
+]

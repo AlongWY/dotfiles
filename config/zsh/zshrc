@@ -1,0 +1,15 @@
+fpath=($HOME/.local/share/completions $fpath)
+autoload -Uz compinit
+compinit
+
+# Init sheldon
+eval "$(sheldon source)"
+
+# Init zoxide
+eval "$(zoxide init zsh)"
+
+# Init starship
+eval "$(starship init zsh)"
+
+# init atuin
+eval "$(atuin init zsh)"
